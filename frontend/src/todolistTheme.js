@@ -1,6 +1,5 @@
 import { createTheme } from '@mui/material/styles';
 import { frFR } from '@mui/material/locale';
-import { teal } from '@mui/material/colors';
 
 const todolistTheme = createTheme({
     palette: {

@@ -1,0 +1,44 @@
+.todoRow{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.taskInfo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+.taskCheckbox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #727932 !important;
+}
+.taskTitle{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+.controlButtonsTwo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 20%;
+    margin-left: 3%;
+}
+.controlButtonsOne{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 10%;
+    margin-left: 3%;
+}
+.controlButton{
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+}
