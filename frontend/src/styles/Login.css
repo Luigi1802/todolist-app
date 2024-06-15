@@ -1,12 +1,12 @@
 .Login{
-    min-width: 100%;
-    min-height: 100vh;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 .loginContainer{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     border: 1px #727932 solid;
     box-shadow:  2px 7px 7px rgba(0, 0, 0, 0.4);
     border-radius: 10px; 
@@ -14,8 +14,9 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-inline: 70px;
-    padding-block: 50px;
+    align-items: center;
+    width: 25%;
+    padding: 3%;
 }
 .formContainer{
     color: #525723;
@@ -24,32 +25,38 @@
     box-shadow:  2px 5px 5px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
-    justify-content: center;
     text-align: center;
-    padding: 20px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    width: 70%;
+    padding-inline: 15%;
+    padding-block: 3%;
 }
 .titleContainer{
-    color: #525723;
-    margin: 0 auto;
-    margin-bottom: 30px;
+    color: #525723; 
+    margin-bottom: 5%;
     display: inline-flex;
     align-items: center;
+    width: 50%;
 }
 .loginTitle{
     font-size: 2em;
-    padding-left: 15px;
+    padding-left: 7%;
+}
+.loginInputContainer{
+    text-align: left;
+    margin-bottom: 8%;
+    width: 100%;
+}
+.formTitle{
+    margin-bottom: 15%;
 }
 .loginInput{
-    text-align: left;
-    margin-bottom:10px;
+    width: 100%;
 }
 .loginButton{
-    margin-top:15px;
-    margin-bottom: 15px;
+    margin-top: 5%;
+    margin-bottom: 8%;
 }
 .alertLogin{
     margin: 10px;
+    margin-bottom: 10%;
 }

@@ -16,6 +16,7 @@ import { authService } from '../services/authService.js';
 import { Alert } from '@mui/material';
 
 function Login() {
+    // variables, usestates
     const navigate = useNavigate();
     const [credentials, setCredentials] = useState({
         identifier : '',
@@ -24,15 +25,15 @@ function Login() {
     const [idInvalides, setIdInvalides] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
+    // fonctions 
     const errorAlert = idInvalides ? <Alert className="alertLogin" variant="filled" severity="error">Identifiants incorrects</Alert> : null;
-
     const handleChange = (e) => {
+        setIdInvalides(false);
         setCredentials({
             ...credentials,
             [e.target.name]: e.target.value
         })
     }
-
     const handleSubmit = (e) => {
         e.preventDefault();
         authService.login(credentials)
@@ -44,13 +45,12 @@ function Login() {
                 setIdInvalides(true);
             })
     }
-    
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-
     const handleMouseDownPassword = (event) => {
       event.preventDefault();
     };
 
+    // affichage
     return(<div className="Login">
                 <div className="loginContainer">
                     <div className="titleContainer">
@@ -58,12 +58,13 @@ function Login() {
                         <h1 className="loginTitle">Todolist</h1>
                     </div>
                     <form className='formContainer' onSubmit={handleSubmit}>
-                        <h3>Connexion</h3>
+                        <h3 className="formTitle">Connexion</h3>
                         {/* email */}
-                        <div className='loginInput'>
-                            <FormControl sx={{ m: 1, width: '30ch' }} variant="standard">
+                        <div className='loginInputContainer'>
+                            <FormControl variant="standard" className='loginInput'>
                                 <InputLabel htmlFor="identifier">Adresse Email</InputLabel>
                                 <Input
+                                    fullWidth
                                     id="identifier"
                                     type='mail'
                                     sx={{
@@ -81,10 +82,11 @@ function Login() {
                             </FormControl>
                         </div>
                         {/* password */}
-                        <div className='loginInput'>
-                            <FormControl sx={{ m: 1, width: '30ch' }} variant="standard">
+                        <div className='loginInputContainer'>
+                            <FormControl variant="standard" className='loginInput'>
                                 <InputLabel htmlFor="password">Mot de passe</InputLabel>
                                 <Input
+                                    fullWidth
                                     id="password"
                                     type={showPassword ? 'text' : 'password'}
                                     sx={{
