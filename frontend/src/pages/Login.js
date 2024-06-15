@@ -39,6 +39,7 @@ function Login() {
         authService.login(credentials)
             .then(res => {
                 authService.saveToken(res.data.jwt);
+                authService.saveUsername(res.data.user.username);
                 navigate('/');  
             })
             .catch(error => {

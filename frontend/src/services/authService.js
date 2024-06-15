@@ -12,7 +12,7 @@ const register = (credentials) => {
 
 let logout = () => {
     localStorage.removeItem('AuthToken');
-    localStorage.removeItem('UserId');
+    localStorage.removeItem('Username');
 }
 
 let isLogged = () => {
@@ -22,6 +22,10 @@ let isLogged = () => {
 
 let saveToken = (token) => { 
     localStorage.setItem('AuthToken', token);
+}
+
+let saveUsername = (name) => { 
+    localStorage.setItem('Username', name);
 }
 
 let getToken = () => {
@@ -46,5 +50,5 @@ let getUsername = () => {
 // }
 
 export const authService = {
-    login, saveToken, logout, isLogged, getToken, getUserId, register, getUsername
+    login, saveToken, logout, isLogged, getToken, getUserId, register, getUsername, saveUsername
 }
