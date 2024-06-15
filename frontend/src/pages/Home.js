@@ -4,7 +4,7 @@ import '../styles/Home.css';
 const Home = () => {
     return (
         <div className='Home'>
-            <h1>todolist-app</h1>
+            <h1>todolist-app home</h1>
         </div>
     );
 };

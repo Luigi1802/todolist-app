@@ -1,12 +1,11 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom';
-//import { accountService } from '../../_services/account.service';
+import { authService } from '../services/authService';
 
 const AuthGuard = ({guardType, children}) => {
-    // if (!accountService.isLogged() || accountService.getUserRole() !== guardType) {
-    //     return <Navigate to="/login"/>
-    // }
-    // return children;
+    if (!authService.isLogged()) {
+        return <Navigate to="/login"/>
+    }
     return children;
 };
 
