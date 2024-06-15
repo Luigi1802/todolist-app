@@ -362,6 +362,85 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiTaskTask extends Schema.CollectionType {
+  collectionName: 'tasks';
+  info: {
+    singularName: 'task';
+    pluralName: 'tasks';
+    displayName: 'Task';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    done: Attribute.Boolean & Attribute.DefaultTo<false>;
+    begin: Attribute.DateTime;
+    end: Attribute.DateTime;
+    tasklist: Attribute.Relation<
+      'api::task.task',
+      'manyToOne',
+      'api::tasklist.tasklist'
+    > &
+      Attribute.Required;
+    user: Attribute.Relation<
+      'api::task.task',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    > &
+      Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::task.task', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::task.task', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTasklistTasklist extends Schema.CollectionType {
+  collectionName: 'tasklists';
+  info: {
+    singularName: 'tasklist';
+    pluralName: 'tasklists';
+    displayName: 'Tasklist';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required & Attribute.Unique;
+    user: Attribute.Relation<
+      'api::tasklist.tasklist',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    > &
+      Attribute.Required;
+    tasks: Attribute.Relation<
+      'api::tasklist.tasklist',
+      'oneToMany',
+      'api::task.task'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::tasklist.tasklist',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::tasklist.tasklist',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -724,6 +803,16 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    tasklists: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::tasklist.tasklist'
+    >;
+    tasks: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::task.task'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -798,6 +887,8 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::task.task': ApiTaskTask;
+      'api::tasklist.tasklist': ApiTasklistTasklist;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;

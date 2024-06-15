@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tasklists",
+  "info": {
+    "singularName": "tasklist",
+    "pluralName": "tasklists",
+    "displayName": "Tasklist"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "tasklists",
+      "required": true
+    },
+    "tasks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::task.task",
+      "mappedBy": "tasklist"
+    }
+  }
+}
