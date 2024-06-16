@@ -42,3 +42,10 @@
     justify-content: space-between;
     width: 50%;
 }
+.crossed{
+    text-decoration-line: line-through;
+    text-decoration-color: #727932;   
+}
+.crossed .Mui-disabled{
+    -webkit-text-fill-color: #727932 !important;
+}

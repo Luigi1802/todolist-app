@@ -1,78 +1,50 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { tasklistService } from '../services/tasklistService';
 import '../styles/Todolist.css';
-import { IconButton, TextField } from '@mui/material';
+import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import SpellcheckIcon from '@mui/icons-material/Spellcheck';
+import PlaylistRemoveIcon from '@mui/icons-material/PlaylistRemove';
 import EditIcon from '@mui/icons-material/Edit';
 import List from '@mui/material/List';
 import Todo from './Todo';
+import { authService } from '../services/authService';
+import { taskService } from '../services/taskService';
 
-const Todolist = () => {
+const Todolist = (props) => {
     // variables
-    const [todolist, setTodolist] = useState({
-        "id": 1,
-        "attributes": {
-          "title": "Courses alimentaires",
-          "createdAt": "2024-06-15T07:48:04.449Z",
-          "updatedAt": "2024-06-15T07:49:21.799Z",
-          "publishedAt": "2024-06-15T07:48:58.160Z",
-          "user": {
-            "data": {
-              "id": 1,
-              "attributes": {
-                "username": "Luigi18",
-                "email": "luigiaubrypouget@gmail.com",
-                "provider": "local",
-                "confirmed": true,
-                "blocked": false,
-                "createdAt": "2024-06-15T07:41:34.283Z",
-                "updatedAt": "2024-06-15T07:41:34.283Z"
-              }
-            }
-          },
-          "tasks": {
-            "data": [
-              {
-                "id": 1,
-                "attributes": {
-                  "title": "Poivrons",
-                  "done": false,
-                  "begin": null,
-                  "end": null,
-                  "createdAt": "2024-06-15T07:44:32.254Z",
-                  "updatedAt": "2024-06-15T10:41:44.910Z",
-                  "publishedAt": "2024-06-15T07:49:12.667Z"
-                }
-              },
-              {
-                "id": 2,
-                "attributes": {
-                  "title": "Beurre",
-                  "done": false,
-                  "begin": null,
-                  "end": null,
-                  "createdAt": "2024-06-15T07:48:32.595Z",
-                  "updatedAt": "2024-06-15T10:41:07.759Z",
-                  "publishedAt": "2024-06-15T07:49:05.179Z"
-                }
-              },
-              {
-                "id": 3,
-                "attributes": {
-                  "title": "Oeufs",
-                  "done": false,
-                  "begin": null,
-                  "end": null,
-                  "createdAt": "2024-06-15T07:48:51.865Z",
-                  "updatedAt": "2024-06-15T10:41:40.391Z",
-                  "publishedAt": "2024-06-15T07:49:10.537Z"
-                }
-              }
-            ]
-          }
-        }});
+    const [tasklist, setTasklist] = useState(undefined);
+    const [taskListId] = useState(props.taskListId);
     const [editTodolist, setEditTodolist] = useState(false);
+
+    // fonctions
+    const getTasklist = () => {
+        tasklistService.getTasklist(taskListId)
+        .then(res => {
+            setTasklist(res.data.data);
+        })
+        .catch(e => {
+            console.log(e);
+        });
+    };
+
+    const handleCreate = () => {
+        const taskBody = {data : {
+            title : "",
+            user: authService.getUserId(),
+            tasklist: taskListId
+        }};
+        taskService.createTask(taskBody)
+        .catch(e => {
+            console.log(e);
+        });
+        getTasklist();
+    }
+
+    useEffect(() => {
+        getTasklist();
+    }, []);
 
     return (
         <div className='Todolist'>
@@ -83,7 +55,7 @@ const Todolist = () => {
                             <CloseIcon fontSize='medium'/>
                         </IconButton>
                     </div>
-                    <h3>{todolist.attributes.title}</h3>
+                    <h3>{tasklist && tasklist.attributes.title}</h3>
                 </div>
                 <div className='titleRowEditSave'>
                     { editTodolist ? 
@@ -97,12 +69,19 @@ const Todolist = () => {
             </div>
             <div className='todos'>
                 <List>
-                    <Todo data={todolist.attributes.tasks.data[1]}/>
-                    <Todo data={todolist.attributes.tasks.data[2]}/>
+                    { tasklist && 
+                    (tasklist.attributes.tasks.data.length > 0 ? 
+                    tasklist.attributes.tasks.data.map(task => 
+                    <Todo taskId={task.id} reloadTasklist={getTasklist} key={task.id} />) :
+                    <div className='noTask'>
+                        <PlaylistRemoveIcon sx={{mr:1}}/>
+                        <h3>Aucune tâche</h3>
+                    </div>)
+                    }
                 </List>
             </div>
             <div className='addTodo'>
-                <IconButton color="primary">
+                <IconButton color="primary" onClick={handleCreate}>
                     <AddCircleOutlineIcon fontSize='large'/>
                 </IconButton>           
             </div>
