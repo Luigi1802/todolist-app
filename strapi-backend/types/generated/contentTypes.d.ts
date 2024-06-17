@@ -374,7 +374,11 @@ export interface ApiTaskTask extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String & Attribute.Required;
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 25;
+      }>;
     done: Attribute.Boolean & Attribute.DefaultTo<false>;
     begin: Attribute.DateTime;
     end: Attribute.DateTime;

@@ -16,7 +16,9 @@
     justify-content: center;
     align-items: center;
     width: 25%;
-    padding: 3%;
+    padding-top: 1%;
+    padding-bottom: 2%;
+    padding-inline: 3%;
 }
 .formContainer{
     color: #525723;
@@ -27,12 +29,12 @@
     flex-direction: column;
     text-align: center;
     width: 70%;
-    padding-inline: 15%;
-    padding-block: 3%;
+    padding-inline: 10%;
+    padding-block: 2%;
 }
 .titleContainer{
     color: #525723; 
-    margin-bottom: 5%;
+    margin-bottom: 1%;
     display: inline-flex;
     align-items: center;
     width: 50%;
@@ -54,7 +56,7 @@
 }
 .loginButton{
     margin-top: 5%;
-    margin-bottom: 8%;
+    /* margin-bottom: 8%; */
 }
 .alertLogin{
     margin: 10px;

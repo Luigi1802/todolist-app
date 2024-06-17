@@ -43,12 +43,6 @@ let getUsername = () => {
     return username;
 }
 
-// let changePassword = (pswdData) => {
-//     return axios.patch(`/pswd/`, pswdData,
-//     { headers: {"Authorization" : `Bearer ${accountService.getToken()}`}}
-//     );
-// }
-
 export const authService = {
     login, saveToken, logout, isLogged, getToken, getUserId, register, getUsername, saveUsername
 }
